@@ -7,7 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jpabook.start.jwt.model.User;
+import lombok.Data;
 
+@Data
 public class PrincipalDetails implements UserDetails{
 
 	private User user;
