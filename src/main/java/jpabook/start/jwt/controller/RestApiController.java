@@ -1,11 +1,13 @@
 package jpabook.start.jwt.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jpabook.start.jwt.config.auth.PrincipalDetails;
 import jpabook.start.jwt.model.User;
 import jpabook.start.jwt.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,4 +36,25 @@ public class RestApiController {
 		return "회원가입완료";
 	}
 	
+	// user,manager,admin권한만 접근 가능 
+	@GetMapping("/api/v1/user")
+	public String user(Authentication authentication) {
+		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+		System.out.println("authentication:"+principal.getUsername());
+		return "user";
+	}
+	
+	// manager,admin권한만 접근 가능 
+	@GetMapping("/api/v1/manager")
+	public String manager() {
+		return "manager";
+	}
+	
+	// admin권한만 접근 가능 
+	@GetMapping("/api/v1/admin")
+	public String admin() {
+		
+		return "admin";
+		
+	}
 }
